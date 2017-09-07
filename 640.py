@@ -19,13 +19,12 @@ class Solution(object):
 				while i < len(equation) and equation[i] in num:
 					tmp += equation[i]
 					i += 1
-				if i<len(equation):
-					# print(tmp,flag)
+				if i < len(equation):
 					if equation[i] == 'x':
-						if i==0 or equation[i-1]=="+" or equation[i-1]=="-" or equation[i-1]=="=":
+						if i == 0 or equation[i - 1] == "+" or equation[i - 1] == "-" or equation[i - 1] == "=":
 							tmp += '1'
 						s1 += int(tmp) * flag
-						i+=1
+						i += 1
 					else:
 						s2 += int(tmp) * flag
 				else:

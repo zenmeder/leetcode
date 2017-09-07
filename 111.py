@@ -1,7 +1,3 @@
-#!/usr/local/bin/ python3
-# -*- coding:utf-8 -*-
-# __author__ = "zenmeder"
-
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -15,11 +11,18 @@ class Solution(object):
 		:type root: TreeNode
 		:rtype: int
 		"""
-		maxLength = 0
-		node = [root]
-		flag = 0
-		while len(node) != 0:
-			if flag == 0:
-				p = node[0].left
-			elif flag == 1:
-				p = node[0].right
+		if not root:
+			return 0
+		lst = [root]
+		res = 0
+		while lst:
+			lstc = []
+			res += 1
+			for node in lst:
+				if node.left:
+					lstc.append(node.left)
+				if node.right:
+					lstc.append(node.right)
+				if not node.right and not node.left:
+					return res
+			lst = lstc[:]

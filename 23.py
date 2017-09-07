@@ -1,25 +1,23 @@
-#!/usr/local/bin/ python3
-# -*- coding:utf-8 -*-
-# __author__ = "zenmeder"
-
-# Definition for singly-linked list.
+import heapq
 class ListNode(object):
 	def __init__(self, x):
 		self.val = x
 		self.next = None
 
-class Solution(object):
-	def mergeKLists(self, lists):
-		"""
-		:type lists: List[ListNode]
-		:rtype: ListNode
-		"""
-		head = ListNode(0)
-		p = []
-		q = []
-		for i in range(len(lists)):
-			p[i] = lists[i]
-			q[i] = p[i].val
-		while True:
-
-	# def findSmallest(self, p):
+class Solution:
+    # @param a list of ListNode
+    # @return a ListNode
+    def mergeKLists(self, lists):
+        heap = []
+        for node in lists:
+            if node: 
+                heap.append((node.val, node))
+        heapq.heapify(heap)
+        head = ListNode(0); curr = head
+        while heap:
+            pop = heapq.heappop(heap)
+            curr.next = ListNode(pop[0])
+            curr = curr.next
+            if pop[1].next: 
+                heapq.heappush(heap, (pop[1].next.val, pop[1].next))
+        return head.next

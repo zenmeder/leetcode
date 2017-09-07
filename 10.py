@@ -1,33 +1,23 @@
 #!/usr/local/bin/ python3
 # -*- coding:utf-8 -*-
 # __author__ = "zenmeder"
-class Solution(object):
-	def isMatch(self, s, p):
-		"""
-		:type s: str
-		:type p: str
-		:rtype: bool
-		"""
-		if p == '' and s == '':
-			return True
-		if len(s) == 1 and len(p) == 1 and (s == p or p == '.'):
-			return True
-		if p[1] != '*' :
-			if len(s) == 0:
-				return False
-			elif s[0] == p[0]:
-				s = s.replace(s[0],'',1)
-				p = p.replace(p[0],'',1)
-				return self.isMatch(s,p)
-		if p[1] == '*':
-			if len(s)!=0  and s[0] == p[0]:
-				p = p.replace(p[0],'',1)
-				p = p.replace(p[0],'',1)
-				if self.isMatch(s,p):
-					return True
-				else:
-					s = s.replace(s[0],'',1)
-					return self.isMatch(s,p)
+class Solution:
+    # @return a boolean
+    def isMatch(self, s, p):
+        dp=[[False for i in range(len(p)+1)] for j in range(len(s)+1)]
+        dp[0][0]=True
+        for i in range(1,len(p)+1):
+            if p[i-1]=='*':
+                if i>=2:
+                    dp[0][i]=dp[0][i-2]
+        for i in range(1,len(s)+1):
+            for j in range(1,len(p)+1):
+                if p[j-1]=='.':
+                    dp[i][j]=dp[i-1][j-1]
+                elif p[j-1]=='*':
+                    dp[i][j]=dp[i][j-1] or dp[i][j-2] or (dp[i-1][j] and (s[i-1]==p[j-2] or p[j-2]=='.'))
+                else:
+                    dp[i][j]=dp[i-1][j-1] and s[i-1]==p[j-1]
+        return dp[len(s)][len(p)]
 
-solution = Solution()
-print(solution.isMatch('abc','ab*'))
+print(Solution().isMatch('aaaa','b.*'))
