@@ -1,44 +1,21 @@
-#!/usr/local/bin/ python3
-# -*- coding:utf-8 -*-
-# __author__ = "zenmeder"
-
 class Solution(object):
 	def findMaxLength(self, nums):
 		"""
-		:type nums: List[int]
-		:rtype: int
-		"""
-		stop = []
-		maxL = 0
+        :type nums: List[int]
+        :rtype: int
+        """
+		res, s, d = 0, 0, {}
+		if len(nums) < 2:
+			return 0
 		for i in range(len(nums)):
-			zeros, ones, crt = 0, 0, 0
-			if not stop or stop[-1] == 0:
-				for j in range(i, len(nums)):
-					if nums[j]:
-						ones += 1
-					else:
-						zeros += 1
-					if ones == zeros:
-						crt = ones
-						maxL = max(maxL, 2*crt)
-				stop.append(crt)
+			s = s + 1 if nums[i] else s - 1
+			if s == 0:
+				res = max(i+1,res)
+			elif s not in d:
+				d[s] = i
 			else:
-				zeros, ones = stop[-1], stop[-1]
-				crt = 0
-				if nums[i-1]:
-					ones -= 1
-				else:
-					zeros -= 1
-				for j in range(i+2*stop[-1], len(nums)):
-					if nums[j]:
-						ones += 1
-					else:
-						zeros += 1
-					if ones == zeros:
-						crt = ones
-						maxL = max(maxL, 2*crt)
-				stop.append(crt)
-		print(stop)
-		return maxL
+				res = max(res, i-d[s])
+		return res
 
-print(Solution().findMaxLength([0,0,1,0,0,0,1,1]))
+
+print(Solution().findMaxLength([0,1,1,0,1,1,0,0,1]))

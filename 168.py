@@ -3,22 +3,15 @@
 # __author__ = "zenmeder"
 
 class Solution(object):
-	def convertToTitle(self, n):
-		"""
-		:type n: int
-		:rtype: str
-		"""
-		result = []
-		while True:
-			if 1<=n<=26:
-				result.append(chr(n+64))
-				break
-			if n % 26 == 0:
-				result.append('Z')
-			else:
-				result.append(chr(n%26+64))
-			n //= 26
+    def convertToTitle(self, n):
+        res = []
+        while n > 0:
+            if n % 26 == 0:
+                res.append('Z')
+            else:
+                res.append(chr(n % 26 + 64))
+            n = (n - 1) // 26
+        return ''.join(res[::-1])
 
-		return ''.join(result[::-1])
 
-print(Solution().convertToTitle(52))
+print(Solution().convertToTitle(26))

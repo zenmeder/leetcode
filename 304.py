@@ -7,6 +7,8 @@ class NumMatrix(object):
 		"""
 		:type matrix: List[List[int]]
 		"""
+		self.matrix = matrix
+		self.cache = {}
 
 	def sumRegion(self, row1, col1, row2, col2):
 		"""
@@ -16,9 +18,3 @@ class NumMatrix(object):
 		:type col2: int
 		:rtype: int
 		"""
-
-
-
-		# Your NumMatrix object will be instantiated and called as such:
-		# obj = NumMatrix(matrix)
-		# param_1 = obj.sumRegion(row1,col1,row2,col2)

@@ -4,6 +4,11 @@
 
 class Solution(object):
 	def solveEquation(self, equation):
+		z = eval(equation.replace('x', 'j').replace('=', '-(') + ')', {'j': 1j})
+		a, x = z.real, -z.imag
+		return 'x=%d' % (a / x) if x else 'No solution' if a else 'Infinite solutions'
+
+	def solveEquation1(self, equation):
 		s1 = 0
 		s2 = 0
 		flag = 1
@@ -41,4 +46,4 @@ class Solution(object):
 
 
 solution = Solution()
-print(solution.solveEquation('2x=x'))
+print(solution.solveEquation('x+5-3+x=6+x-2'))

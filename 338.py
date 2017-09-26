@@ -2,17 +2,11 @@
 # -*- coding:utf-8 -*-
 # __author__ = "zenmeder"
 
-from collections import Counter
 class Solution(object):
 	def countBits(self, num):
-		"""
-		:type num: int
-		:rtype: List[int]
-		"""
-		res = []
-		for i in range(num+1):
-			a = bin(i)[2:]
-			res.append(Counter(a)['1'])
-		return res
-
-print(Solution().countBits(100))
+		res ,i = [0,1,1,2], 1
+		while len(res) <= num:
+			res += [res[i], res[i]+1, res[i]+1, res[i]+2]
+			i += 1
+		return res[:num+1]
+print(Solution().countBits(1))

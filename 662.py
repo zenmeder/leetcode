@@ -4,40 +4,34 @@
 
 # Definition for a binary tree node.
 class TreeNode(object):
-	def __init__(self, x):
-		self.val = x
-		self.left = None
-		self.right = None
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 
 class Solution(object):
-	def widthOfBinaryTree(self, root):
-		"""
-		:type root: TreeNode
-		:rtype: int
-		"""
-		if not root:
-			return 0
-		nodes = [root]
-		maxWidth = 1
-		while True:
-			c = []
-			for node in nodes:
-				if not node:
-					c += [None, None]
-				else:
-					c.append(node.left)
-					c.append(node.right)
-			i, j = 0, len(c)-1
-			while i < len(c) and not c[i]:
-				i += 1
-			while j >= 0 and not c[j]:
-				j -= 1
-			if j < i:
-				break
-			maxWidth = max(maxWidth, j - i + 1)
-			nodes = c[:]
-		return maxWidth
+    def widthOfBinaryTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root:
+            return 0
+        root.val, res = 0, 0
+        nodes = [root]
+        while nodes:
+            res = max(res, nodes[-1].val - nodes[0].val + 1)
+            nodes_copy = []
+            for node in nodes:
+                if node.left:
+                    node.left.val = 2*node.val -1
+                    nodes_copy.append(node.left)
+                if node.right:
+                    node.right.val = 2*node.val
+                    nodes_copy.append(node.right)
+            nodes = nodes_copy[:]
+        return res
 
 
 a = TreeNode(1)

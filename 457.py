@@ -11,16 +11,11 @@ class Solution(object):
 		if not nums:
 			return False
 		length = len(nums)
-		if nums[0] == length:
-			return False
-		i = nums[0]
-		while i != 0 and nums[i] != length:
-			i += nums[i]
-			if i >= length:
-				i %= length
-		if not i:
-			return True
-		return False
+		for i in range(length):
+			if nums[i] % length == 0:
+				continue
+			start = i
 
 
-print(Solution().circularArrayLoop([-2,1,-1,-2,-2]))
+print(Solution().circularArrayLoop([1,2,3,4,5]))
+3 1 2

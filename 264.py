@@ -5,18 +5,13 @@ import heapq
 
 class Solution(object):
 	def nthUglyNumber(self, n):
-		uglies = [1]
-		def gen(param):
-			for ugly in uglies:
-				yield ugly * param
-
-		merged = heapq.merge(*map(gen, [2,3,5]))
-		while len(uglies) < n:
-			ugly = next(merged)
-			if ugly != uglies[-1]:
-				uglies.append(ugly)
-
-		return uglies[-1]
-
+		res = [1]
+		f2, f3, f5 = 0, 0, 0
+		for i in range(1, n):
+			res.append(min([res[f2]*2, res[f3]*3, res[f5]*5]))
+			if res[-1] == res[f2]*2: f2+=1
+			if res[-1] == res[f3]*3: f3+=1
+			if res[-1] == res[f5]*5: f5+=1
+		return res
 
 print(Solution().nthUglyNumber(10))

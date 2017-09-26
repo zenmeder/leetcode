@@ -14,7 +14,7 @@ class Solution(object):
 		:type intervals: List[Interval]
 		:rtype: List[Interval]
 		"""
-		intervals = sorted(intervals,key=self.sortIntervals)
+		intervals = sorted(intervals,key=lambda x:x.start)
 		result = []
 		for i in range(len(intervals)):
 			if len(result) == 0:
@@ -29,8 +29,6 @@ class Solution(object):
 				continue
 
 		return result
-	def sortIntervals(self, interval):
-		return interval.start
 
 a = []
 solution = Solution()
