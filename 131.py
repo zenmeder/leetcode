@@ -1,29 +1,36 @@
-#!/usr/local/bin/ python3
-# -*- coding:utf-8 -*-
-# __author__ = "zenmeder"
+class Solution:
+    def partition(self, s):
+        """
+        :type s: str
+        :rtype: List[List[str]]
+        """
 
-class Solution(object):
-	def partition(self, s):
-		"""
-		:type s: str
-		:rtype: List[List[str]]
-		"""
-		res = []
-		for i in range(len(s) - 1):
-			if self.ifPalindrome(s[:i]) and self.ifPalindrome(s[i:]):
-				res.append([s[:i], s[i:]])
-		return res
+        def isPalindrome(s):
+            return s == s[::-1]
 
-	def ifPalindrome(self, s):
-		if not s:
-			return True
-		i, j = 0, len(s) - 1
-		while i <= j:
-			if s[i] == s[j]:
-				i += 1
-				j -= 1
-			else:
-				return False
-		return True
+        def getPalindromeSeq(s):
+            res = set()
+            if isPalindrome(s):
+                res.add(tuple([s]))
+            for i in range(1, len(s)):
+                if isPalindrome(s[:i]) and isPalindrome(s[i:]):
+                    res.add(tuple([s[:i], s[i:]]))
+                    for seq in getPalindromeSeq(s[:i]):
+                        res.add((seq+tuple(s[i:])))
+                    for seq in getPalindromeSeq(s[i:]):
+                        res.add((tuple(s[:i])+seq))
+                elif isPalindrome(s[:i]) and not isPalindrome(s[i:]):
+                    for seq in getPalindromeSeq(s[:i]):
+                        res.add(seq+tuple([_ for _ in s[i:]]))
+                elif not isPalindrome(s[:i]) and isPalindrome(s[i:]):
+                    for seq in getPalindromeSeq(s[i:]):
+                        res.add(tuple([_ for _ in s[:i]])+seq)
+                else:
+                    res.add(tuple([_ for _ in s]))
+            return res
+        res = []
+        for _ in getPalindromeSeq(s):
+            res.append(list(_))
+        return res
 
-print(Solution().partition('aab'))
+print(Solution().partition('aba'))

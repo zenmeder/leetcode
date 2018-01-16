@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../Machine Learning/.idea/Machine Learning.iml" filepath="$PROJECT_DIR$/../Machine Learning/.idea/Machine Learning.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../dbmovie/.idea/dbmovie.iml" filepath="$PROJECT_DIR$/../dbmovie/.idea/dbmovie.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../kaggle/.idea/kaggle.iml" filepath="$PROJECT_DIR$/../kaggle/.idea/kaggle.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/leetcode.iml" filepath="$PROJECT_DIR$/.idea/leetcode.iml" />
     </modules>
   </component>

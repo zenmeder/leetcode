@@ -10,27 +10,29 @@ class Solution(object):
         """
         if not grid:
             return 0
-        colors = [[0] * len(grid[0]) for _ in range(len(grid))]
+        def dfs(i,j):
+            color[i][j] = 1
+            directions = [[0,1],[0,-1],[1,0],[-1,0]]
+            for direction in directions:
+                if 0 <= i + direction[0] < len(grid) and 0 <= j + direction[1] < len(grid[0]) and \
+                        grid[i + direction[0]][j + direction[1]] == '1' and not color[i + direction[0]][j + direction[1]]:
+                    dfs(i + direction[0],j + direction[1])
+        color = [[0] * len(grid[0]) for _ in range(len(grid))]
         m, n, res = len(grid), len(grid[0]), 0
         for i in range(m):
             for j in range(n):
-                if grid[i][j] == '0':
-                    continue
-                if (i - 1 >= 0 and colors[i - 1][j] != 0):
-                    colors[i][j] = colors[i - 1][j]
-                    continue
-                if (j - 1 >= 0 and colors[i][j - 1] != 0):
-                    colors[i][j] = colors[i][j - 1]
-                    continue
-                if (i + 1 < m and colors[i + 1][j] != 0):
-                    colors[i][j] = colors[i + 1][j]
-                    continue
-                if (j + 1 < n and colors[i][j + 1] != 0):
-                    colors[i][j] = colors[i][j + 1]
-                    continue
-                res += 1
-                colors[i][j] = res
+                if grid[i][j] == '1' and not color[i][j]:
+                    dfs(i,j)
+                    res += 1
         return res
 
 
-print(Solution().numIslands(["111", "010", "111"]))
+g = [[0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+     [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+     [0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+     [0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0],
+     [0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0],
+     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+     [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+     [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0]]
+print(Solution().numIslands(g))

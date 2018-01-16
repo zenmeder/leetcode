@@ -10,22 +10,21 @@ class Solution(object):
         """
         if not nums:
             return 0
-        dp, m, n= [1] * len(nums), 1, 1,
-        for i in range(1, len(nums)):
-            if m == 1:
-                n += 1
+        dp, times = [1], [1]
+        for i in range(1,len(nums)):
+            m, n = 1, 1
             for j in range(i):
                 if nums[j] < nums[i]:
-                    dp[i] = max(dp[i], dp[j]+1)
-                    if dp[j] + 1 == m:
-                        n += 1
-                    elif dp[j] + 1 > m:
+                    if dp[j] + 1 > m:
                         m = dp[j] + 1
-                        n = 1
-            print(i,m,n)
-        print(dp)
-        return m,n
+                        n = times[j]
+                    elif dp[j] + 1 == m:
+                        n += times[j]
+            dp.append(m)
+            times.append(n)
+        maxLength = max(dp)
+        return sum([times[_] for _ in range(len(nums)) if dp[_] == maxLength])
 
 
 
-print(Solution().findNumberOfLIS([1,2,4,3,5,4,7,2]))
+print(Solution().findNumberOfLIS([1,3,5,4,7]))

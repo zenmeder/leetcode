@@ -21,4 +21,4 @@ class Solution(object):
 
 
 solution = Solution()
-print(solution.removeDuplicates([1]))
+print(solution.removeDuplicates([1,1,2]))

@@ -1,22 +1,21 @@
 #!/usr/local/bin/ python3
 # -*- coding:utf-8 -*-
 # __author__ = "zenmeder"
-import math
+from math import factorial
 
-from itertools import permutations
 class Solution(object):
-	def getPermutation(self, n, k):
-		"""
-		:type n: int
-		:type k: int
-		:rtype: str
-		"""
-		# if k > math.factorial(n):
-		# 	return ''
-		# a1 = k // (math.factorial(n - 1))
-		# # print(k,(math.factorial(n - 1)) )
-		# nums = [i for i in range(1,n+1)]
-		# nums.remove(a1)
-		# return nums
-		a = permutations(range(1,n+1))
-print(Solution().getPermutation(3,2))
+    def getPermutation(self, n, k):
+        nums = [str(_) for _ in range(1, n+1)]
+        res, i = '', 1
+        while len(nums) != 1:
+            pos = (k-1)//factorial(n-i) if (k-1)//factorial(n-i) < len(nums) else len(nums)-1
+            k-=pos*factorial(n-i)
+            s = nums[pos]
+            res += s
+            nums.remove(s)
+            i += 1
+        res += nums[0]
+        return res
+
+
+print(Solution().getPermutation(9,2))

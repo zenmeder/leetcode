@@ -1,7 +1,6 @@
 #!/usr/local/bin/ python3
 # -*- coding:utf-8 -*-
 # __author__ = "zenmeder"
-import heapq
 class Solution(object):
 	def findKthNumber(self, n, k):
 		"""
@@ -9,12 +8,19 @@ class Solution(object):
 		:type k: int
 		:rtype: int
 		"""
-		strs = sorted([str(s) for s in range(1, n+1)], key=lambda x: str(x))
-		hq = heapq.heapify(strs)
-		i = 0
+		i , a, flag = 1, 1, True
 		while i<k:
-			res = next(hq)
-			i+=1
-		return res
+			if a * 10 <= n:
+				a *= 10
+			elif a + 1 <= n:
+				a += 1
+				while not a%10:
+					a = a//10
+			else:
+				a = a//10+1
+			i += 1
+		return a
 
-print(Solution().findKthNumber(13,2))
+print(Solution().findKthNumber(681692778
+,351251360
+))

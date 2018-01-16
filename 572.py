@@ -8,6 +8,7 @@ class TreeNode(object):
         self.left = None
         self.right = None
 
+
 class Solution(object):
     def isSubtree(self, s, t):
         """
@@ -15,9 +16,20 @@ class Solution(object):
         :type t: TreeNode
         :rtype: bool
         """
-        if s.val == t.val:
-            tmp = self.isSubtree(s.left, t.left) and self.isSubtree(s.right, t.right)
+        if not t:
+            return True
+        if not s:
+            return False
+        p = self.isSubtree(s.left, t) or self.isSubtree(s.right, t)
+        if s.val != t.val:
+            return p
+        return p or (self.isSameTree(s.left,t.left) and self.isSameTree(s.right,t.right))
 
+    def isSameTree(self, s, t):
+        if not s and not t:
+            return True
+        if (not s and t) or (not t and s) or s.val != t.val:
+            return False
+        return self.isSameTree(s.left,t.left) and self.isSameTree(s.right, t.right)
 
-
-
+a = TreeNode()

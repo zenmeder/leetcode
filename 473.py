@@ -4,28 +4,22 @@
 
 class Solution(object):
     def makesquare(self, nums):
-        if not nums:
+        c = sum(nums)
+        if not nums or c % 4:
             return False
-        nums = sorted(nums)
-        length, perimeter, count = 0, 0, 0
-        for num in nums:
-            length += 1
-            perimeter += num
-        if perimeter % 4:
+        nums.sort()
+        sums = [0,0,0,0]
+        self.length = len(nums)
+        def dfs(index, target):
+            if (index == self.length):
+                return True if (sums[0] == target and sums[1] == target and sums[2] == target) else False
+            for i in range(4):
+                if sums[i] + nums[index] > target: continue
+                sums[i] += nums[index]
+                if dfs(index+1, target): return True
+                sums[i] -= nums[index]
             return False
-        edge, i, j = perimeter // 4, 0, length-1
-        while count < 4:
-            long = nums[j]
-            if long > edge:
-                return False
-            short = edge - long
-            while short > 0:
-                short -= nums[i]
-                i += 1
-            if short < 0:
-                return False
-            count += 1
-            j -= 1
-        return True if i-j else False
+        return dfs(0, c//4)
 
-print(Solution().makesquare([5,5,5,5,4,4,4,4,3,3,3,3]))
+
+print(Solution().makesquare([3,1,3,3,10,7,10,3,6,9,10,3,7,6,7]))

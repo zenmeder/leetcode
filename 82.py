@@ -12,29 +12,22 @@ class ListNode(object):
 
 class Solution(object):
 	def deleteDuplicates(self, head):
-		if not head:
+		if not head or not head.next:
 			return head
-		nums = {}
-		while head:
-			if not nums or head.val not in nums:
-				nums[head.val] = head
-			elif head.val in nums:
-				nums[head.val] = -1
-			head = head.next
-		nums = [i for i in sorted(nums.keys()) if nums[i] != -1]
-		h = None
-		for i in range(len(nums)):
-			if not h:
-				head = h = ListNode(nums[i])
-			else:
-				h.next = ListNode(nums[i])
-				h = h.next
-		return head
-a = ListNode(2)
-b = ListNode(2)
+		target = head.val
+		p = head.next
+		if p.val != target:
+			head.next = self.deleteDuplicates(p)
+			return head
+		else:
+			while p and p.val == target:
+				p = p.next
+			return self.deleteDuplicates(p)
+a = ListNode(1)
+b = ListNode(1)
 c = ListNode(3)
-d = ListNode(4)
-e = ListNode(5)
+d = ListNode(5)
+e = ListNode(4)
 a.next = b
 b.next = c
 c.next = d
