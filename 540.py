@@ -14,7 +14,6 @@ class Solution(object):
 		# if not (end - begin) % 2:
 		# 	return True
 		# else:
-		print(begin,end)
 		if end==begin:
 			return nums[begin]
 		if end-begin == 2:
@@ -24,7 +23,6 @@ class Solution(object):
 			return nums[mid]
 		if (mid-begin+1)%2:
 			#考虑左半边有奇数个数字的情况
-			print('a:',nums[mid-1],nums[mid],nums[mid+1])
 			if nums[mid] != nums[mid-1]:
 				return self.findSingleNum(nums,mid,end)
 			else:

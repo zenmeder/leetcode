@@ -13,4 +13,4 @@ class Solution(object):
             res += letters[s[i]] * 26 **(length-i-1)
         return res
 
-print(Solution().titleToNumber('BA'))
+print(Solution().titleToNumber('DY'))

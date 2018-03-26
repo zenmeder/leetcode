@@ -38,5 +38,4 @@ class Solution(object):
 		else:
 			return res[:k]
 
-
 print(Solution().topKFrequent([1,2,3,4,5,6], 5))

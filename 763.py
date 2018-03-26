@@ -21,4 +21,5 @@ class Solution:
             i = end+1
         return res
 
-print(Solution().partitionLabels(''))
+print(Solution().partitionLabels('abcdefghijklmnopqrstuvwxyz'))
+

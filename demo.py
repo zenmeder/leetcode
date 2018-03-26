@@ -69,3 +69,18 @@ def p(s):
                     dp[j][i] = 2
                 res = max(res, dp[j][i])
     return res
+
+def quicksort(s, low, high):
+    if low >= high:
+        return s
+    i, pivot = low-1, s[high]
+    for j in range(low, high):
+        if s[j] <= pivot:
+            i += 1
+            s[i], s[j] = s[j], s[i]
+    s[i+1], s[high] = s[high], s[i+1]
+    quicksort(s, low, i)
+    quicksort(s, i+2, high)
+    return s
+
+print(quicksort([1,3,2,5,1,0,-3,4,-8],0,8))
